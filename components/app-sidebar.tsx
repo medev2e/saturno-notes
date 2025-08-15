@@ -1,8 +1,6 @@
-import * as React from 'react'
-import { Plus } from 'lucide-react'
+'use client'
 
-import { Calendars } from '@/components/calendars'
-import { DatePicker } from '@/components/date-picker'
+import * as React from 'react'
 import { NavUser } from '@/components/nav-user'
 import {
   Sidebar,
@@ -13,8 +11,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
-  SidebarSeparator,
 } from '@/components/ui/sidebar'
+import {
+  Command,
+  Frame,
+  LifeBuoy,
+  Map,
+  PieChart,
+  Send,
+} from 'lucide-react'
+import { NavMain } from './nav-main'
+import { NavSecondary } from './nav-secondary'
 
 // This is sample data.
 const data = {
@@ -23,18 +30,33 @@ const data = {
     email: 'm@example.com',
     avatar: '/avatars/shadcn.jpg',
   },
-  calendars: [
+  navSecondary: [
     {
-      name: 'My Calendars',
-      items: ['Personal', 'Work', 'Family'],
+      title: 'Support',
+      url: '#',
+      icon: LifeBuoy,
     },
     {
-      name: 'Favorites',
-      items: ['Holidays', 'Birthdays'],
+      title: 'Feedback',
+      url: '#',
+      icon: Send,
+    },
+  ],
+  items: [
+    {
+      name: 'Design Engineering',
+      url: '#',
+      icon: Frame,
     },
     {
-      name: 'Other',
-      items: ['Travel', 'Reminders', 'Deadlines'],
+      name: 'Sales & Marketing',
+      url: '#',
+      icon: PieChart,
+    },
+    {
+      name: 'Travel',
+      url: '#',
+      icon: Map,
     },
   ],
 }
@@ -43,22 +65,28 @@ export function AppSidebar ({ ...props }: React.ComponentProps<typeof Sidebar>) 
   return (
     <Sidebar {...props}>
       <SidebarHeader className='border-sidebar-border h-16 border-b'>
-        <NavUser user={data.user} />
-      </SidebarHeader>
-      <SidebarContent>
-        <DatePicker />
-        <SidebarSeparator className='mx-0' />
-        <Calendars calendars={data.calendars} />
-      </SidebarContent>
-      <SidebarFooter>
         <SidebarMenu>
           <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Plus />
-              <span>New Calendar</span>
+            <SidebarMenuButton size='lg' asChild>
+              <a href='#'>
+                <div className='bg-sidebar-primary text-sidebar-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg'>
+                  <Command className='size-4' />
+                </div>
+                <div className='grid flex-1 text-left text-sm leading-tight'>
+                  <span className='truncate font-medium'>Acme Inc</span>
+                  <span className='truncate text-xs'>Enterprise</span>
+                </div>
+              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <NavMain items={data.items} />
+        <NavSecondary items={data.navSecondary} className='mt-auto' />
+      </SidebarContent>
+      <SidebarFooter>
+        <NavUser user={data.user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
