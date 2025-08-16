@@ -16,12 +16,15 @@ import {
   Command,
   Frame,
   LifeBuoy,
+  List,
   Map,
   PieChart,
   Send,
+  Star,
 } from 'lucide-react'
 import { NavMain } from './nav-main'
 import { NavSecondary } from './nav-secondary'
+import { NavPrimary } from './nav-primary'
 
 // This is sample data.
 const data = {
@@ -42,7 +45,7 @@ const data = {
       icon: Send,
     },
   ],
-  items: [
+  navList: [
     {
       name: 'Design Engineering',
       url: '#',
@@ -58,6 +61,18 @@ const data = {
       url: '#',
       icon: Map,
     },
+  ],
+  navPrimary: [
+    {
+      name: 'All',
+      url: '#',
+      icon: List,
+    },
+    {
+      name: 'Favorites',
+      url: '#',
+      icon: Star,
+    }
   ],
 }
 
@@ -82,7 +97,8 @@ export function AppSidebar ({ ...props }: React.ComponentProps<typeof Sidebar>) 
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.items} />
+        <NavPrimary items={data.navPrimary} />
+        <NavMain items={data.navList} />
         <NavSecondary items={data.navSecondary} className='mt-auto' />
       </SidebarContent>
       <SidebarFooter>
